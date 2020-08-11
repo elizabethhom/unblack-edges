@@ -1,17 +1,9 @@
-# Makefile for iii (Comp 40 Assignment 2)
-# 
-# Includes build rules for sudoku, unblackedges, my_useuarray2, and my_usebit2.
-#
-# This Makefile is more verbose than necessary.  In each assignment
-# we will simplify the Makefile using more powerful syntax and implicit rules.
-#
 # New syntax rules added:  wildcards (%.o, %.c) and special variables:
 # $@ - the target of the rule
 # $< - the first dependency
 # $^ - all dependencies
 #
 # Last updated: February 4, 2016
-
 
 ############## Variables ###############
 
@@ -35,42 +27,17 @@ LDFLAGS = -g -L/comp/40/build/lib -L/usr/sup/cii40/lib64
 # Only brightness requires the binary for pnmrdr.
 LDLIBS = -lpnmrdr -lcii40 -lm
 
-# Collect all .h files in your directory.
-# This way, you can never forget to add
-# a local .h file in your dependencies.
-#
-# This bugs Mark, who dislikes false dependencies, but
-# he agrees with Noah that you'll probably spend hours 
-# debugging if you forget to put .h files in your 
-# dependency list.
 INCLUDES = $(shell echo *.h)
 
 ############### Rules ###############
 
-all: sudoku unblackedges my_useuarray2 my_usebit2
+all: unblackedges
 
-
-## Compile step (.c files -> .o files)
-
-# To get *any* .o file, compile its .c file with the following rule.
 %.o: %.c $(INCLUDES)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-
-## Linking step (.o -> executable program)
-
-sudoku: sudoku.o uarray2.o
-	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
-
 unblackedges: unblackedges.o bit2.o
 	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
-
-my_useuarray2: useuarray2.o uarray2.o
-	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
-
-my_usebit2: usebit2.o bit2.o
-	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
-
-
+	
 clean:
 	rm -f sudoku unblackedges my_useuarray2 my_usebit2 *.o
