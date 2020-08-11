@@ -1,4 +1,3 @@
 # unblack-edges
 
-![Before](before.png)
-![After](after.png)
+![Before and After](before-and-after.jpg)
