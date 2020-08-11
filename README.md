@@ -1,4 +1,4 @@
 # unblack-edges
 
-![Before](before.jpg)
+![Before](before.jpg){:class="img-responsive"}
 ![After](after.jpg)
