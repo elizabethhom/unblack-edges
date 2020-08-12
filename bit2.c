@@ -1,19 +1,23 @@
 /*
- *     COMP40 - SPRING 2020
- *     HW2 - iii
- *     ELIZABETH HOM & THEO NUNEZ
- *     EHOM01 & TNUNEZ01
- *     10 FEB 2020
+ * bit2.c
  * 
- *     bit2.c - implementation for Bit2, which is represented as a
- *     1-dimensional bit vector that has a length of width * height.
+ * COMP40 - SPRING2020
+ * Elizabeth Hom (ehom01) & Theo Nunez (trnunez01)
+ * Last Modified: February 10, 2020
+ * 
+ * Purpose: Implementation for Bit2 module, which is represented by a
+ *          one-dimensional bit vector that has a length of width * height.
  */
 
-
 #include "bit2.h"
-
 #define T Bit2_T
 
+/*
+ * T
+ *
+ * Describes a Bit2_T instance, which contains the one-dimensional Bit
+ * vector, the width and height of the Bit2_T, and lenght of the Bit vector
+ */
 struct T {
     Bit_T bitVector;
     int width;
@@ -21,12 +25,13 @@ struct T {
     int vectorLength;
 };
 
-/* 
- * NAME:   Bit2_new
- * DOES:   Creates and allocates space for a Bit2 with the given height and
- *         width
- * INPUT:  the bit2's height (int) and width (int)
- * OUTPUT: returns the created Bit22 of type Bit2_T
+/*
+ *  Bit2_new()
+ *
+ *  Parameters: Bit2_T instance's height and width
+ *  Does:       Creates and allocates memory for a Bit2_T instance with the
+ *              given height and width dimensions
+ *  Returns:    Created Bit2_T instance
  */
 extern T Bit2_new(int width, int height)
 {
@@ -42,11 +47,12 @@ extern T Bit2_new(int width, int height)
     return mainVector;
 }
 
-/* 
- * NAME:   Bit2_width
- * DOES:   gets the width (number of columns) of the Bit2
- * INPUT:  the Bit2
- * OUTPUT: the width (int)
+/*
+ *  Bit2_width()
+ *
+ *  Parameters: Bit2_T instance
+ *  Does:       Obtains the width (number of columns) of Bit2_T instance
+ *  Returns:    Bit2_T width
  */
 extern int Bit2_width(T bit2)
 {
@@ -54,11 +60,12 @@ extern int Bit2_width(T bit2)
     return bit2->width;
 }
 
-/* 
- * NAME:   Bit2_height
- * DOES:   gets the height (number of rows) of the Bit2
- * INPUT:  the Bit2
- * OUTPUT: the height (int)
+/*
+ *  Bit2_height()
+ *
+ *  Parameters: Bit2_T instance
+ *  Does:       Obtains the height (number of rows) of Bit2_T instance
+ *  Returns:    Bit2_T height
  */
 extern int Bit2_height(T bit2)
 {
@@ -67,11 +74,13 @@ extern int Bit2_height(T bit2)
 }
 
 /*
- * NAME:   Bit2_put
- * DOES:   puts the value at the specified col and row, returns the value that
- *         was previously there before insertion
- * INPUT:  the Bit2, and the desired row (int) and column (int) to insert at
- * OUTPUT: returns the previous value at the specified row and col
+ *  Bit2_put()
+ *
+ *  Parameters: Bit2_T instance, column and row of placement, value being
+ *              placed
+ *  Does:       Puts value at specified col and row
+ *  Returns:    Returns value previously at the col and row intersection before
+ *              insertion
  */
 extern int Bit2_put(T bit2, int col, int row, int value)
 {
@@ -82,11 +91,11 @@ extern int Bit2_put(T bit2, int col, int row, int value)
 }
 
 /*
- * NAME:   Bit2_get
- * DOES:   retrieves the value at the specified col and row
- * INPUT:  the Bit2, and the desired row (int) and column (int) to retrieve
- *         from.
- * OUTPUT: returns the value at the specified row and col
+ *  Bit2_get()
+ *
+ *  Parameters: Bit2_T instance, desired row and col to retrieve from
+ *  Does:       Retrieves the value stored at the specified col and row
+ *  Returns:    Value at the specified col and row
  */
 extern int Bit2_get(T bit2, int col, int row)
 {
@@ -96,12 +105,13 @@ extern int Bit2_get(T bit2, int col, int row)
     return Bit_get(bit2->bitVector, bitIndex);
 }
 
-/* 
- * NAME:   Bit22_map_row_major
- * DOES:   calls the supplied apply function for each element in the bit vector
- *         where column indices vary more rapidly than row indices
- * INPUT:  the Bit2, an apply function, a closure pointer
- * OUTPUT: returns nothing
+/*
+ *  Bit2_map_row_major()
+ *
+ *  Parameters: Bit2_T instance, an apply function, closure ptr
+ *  Does:       Calls supplied apply function for each element in Bit vector,
+ *              where col indices vary more rapidly than row indices
+ *  Returns:    NA
  */
 extern void Bit2_map_row_major(T bit2, void apply(int i, int j, T bit2, int b,
                                void *p1), void *cl)
@@ -113,18 +123,20 @@ extern void Bit2_map_row_major(T bit2, void apply(int i, int j, T bit2, int b,
         for (int i = 0; i < bit2->width; i++) {
             assert(bitIndex >= 0);
             assert(bitIndex < bit2->vectorLength);
+            
             apply(i, j, bit2, Bit_get(bit2->bitVector, bitIndex), cl);
             bitIndex++;
         }
     }
 }
 
-/* 
- * NAME:   UArray2_map_col_major
- * DOES:   calls the supplied apply function for each element in the bit vector
- *         where row indices vary more rapidly than col indices
- * INPUT:  the Bit2, an apply function, a closure pointer
- * OUTPUT: returns nothing
+/*
+ *  Bit2_map_col_major()
+ *
+ *  Parameters: Bit2_T instance, an apply function, closure ptr
+ *  Does:       Calls supplied apply function for each element in Bit vector,
+ *              where row indices vary more rapidly than col indices
+ *  Returns:    NA
  */
 extern void Bit2_map_col_major(T bit2, void apply(int i, int j, T bit2, int b,
                                void *p1), void *cl)
@@ -137,23 +149,25 @@ extern void Bit2_map_col_major(T bit2, void apply(int i, int j, T bit2, int b,
             bitIndex = (bit2->width * j) + i;
             assert(bitIndex >= 0);
             assert(bitIndex < bit2->vectorLength);
+            
             apply(i, j, bit2, Bit_get(bit2->bitVector, bitIndex), cl);
         }
     }
 }
 
-/* 
- * NAME:   Bit2_free
- * DOES:   frees the associated memory of the Bit2 structure
- * INPUT:  a pointer to the Bit2
- * OUTPUT: returns nothing
+/*
+ *  Bit2_freer()
+ *
+ *  Parameters: Pointer to Bit2_T
+ *  Does:       Frees associated memory of the Bit2_T structure
+ *  Returns:    NA
  */
 extern void Bit2_free(T *bit2)
 {
     assert(bit2 != NULL);
     assert(*bit2 != NULL);
 
-    /* must free Bit vector within Bit2 struct before freeing the Bit2 */
+    /* Must free Bit vector within Bit2_T struct before freeing the Bit2_T */
     Bit_free(&((*bit2)->bitVector));
     free(*bit2);
 }
