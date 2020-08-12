@@ -18,5 +18,5 @@ The program uses the included Bit2 module and [Hanson's](https://en.wikipedia.or
 * before.png: Example PBM image before processing through *unblack-edges*
 * after.png: Example PBM image after processing through *unblack-edges*
 
-### Before & After
+### Example Before & After
 ![Example image before and after unblack-edges processing](before-and-after.jpg)
