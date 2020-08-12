@@ -1,12 +1,12 @@
 /*
- *     COMP40 - SPRING 2020
- *     HW2 - iii
- *     ELIZABETH HOM & THEO NUNEZ
- *     EHOM01 & TNUNEZ01
- *     10 FEB 2020
+ * bit2.h
  * 
- *     bit2.h - interface for Bit2, which supports a 2-dimensional Bit vector
- *     that has a width and height.
+ * COMP40 - SPRING2020
+ * Elizabeth Hom (ehom01) & Theo Nunez (trnunez01)
+ * Last Modified: February 10, 2020
+ * 
+ * Purpose: Interface for Bit2 module, which supports a 2-dimensional Bit
+ *          vector of given width and height.
  */
 
 #ifndef BIT2_H_
@@ -23,79 +23,87 @@
 #define T Bit2_T
 typedef struct T *T;
 
-/* 
- * NAME:   Bit2_new
- * DOES:   Creates a Bit2 with the given height and width
- * INPUT:  the width (int) and height (int) of the Bit2
- *         It is a checked runtime error if the width or height is negative. It
- *         is also a checked runtime error if the memory for the Bit2 is
- *         allocated improperly.
- * OUTPUT: returns the created Bit2 of type Bit2_T
+/*
+ *  Bit2_new()
+ *
+ *  Parameters: Width and height of Bit2_T instance
+ *              *** It is a checked runtime error if the width or height are
+ *                  negative. It is also a checked runtime error if the memory
+ *                  for the Bit2 is allocated improperly.
+ *  Does:       Creates a Bit2_T intance of the provided width and height
+ *  Returns:    The created Bit2 of type Bit2_T
  */
 extern T Bit2_new(int width, int height);
 
-/* 
- * NAME:   Bit2_width
- * DOES:   returns the width of the Bit2
- * INPUT:  the bit2
- *         It is a checked runtime error if the Bit2 is NULL.
+/*
+ *  Bit2_width()
+ *
+ *  Parameters: Bit2_T instance
+ *              *** It is a checked runtime error if the Bit2_T is NULL
+ *  Does:       Returns the width of the Bit2_T instance
  */
 extern int Bit2_width(T bit2);
 
-/* 
- * NAME:   Bit2_height
- * DOES:   returns the height of the Bit2
- * INPUT:  the bit2
+/*
+ *  Bit2_height()
+ *
+ *  Parameters: Bit2_T instance
+ *              *** It is a checked runtime error if the Bit2_T is NULL
+ *  Does:       Returns the height of the Bit2_T instance
  */
 extern int Bit2_height(T bit2);
 
-/* 
- * NAME:   Bit2_put
- * DOES:   stores the given value at a specified col and row
- * INPUT:  the bit2, col (int), row (int), and value (int)
- *         It is a checked runtime error if the Bit2 is NULL.
- * OUTPUT: returns the previous value at the specified col and row
+/*
+ *  Bit2_put()
+ *
+ *  Parameters: Bit2_T instance, column and row of placement, value (int)
+ *              to be placed
+ *              *** It is a checked runtime error if the Bit2_T is NULL
+ *  Does:       Stores the value at the specified col and row
+ *  Returns:    The previous value at the specified col and row
  */
 extern int Bit2_put(T bit2, int col, int row, int value);
 
-/* 
- * NAME:   Bit2_get
- * DOES:   retrieves and returns the value at a specified col and row in a bit2
- * INPUT:  the bit2, col (int), row (int)
- *         It is a checked runtime error if the Bit2 is NULL.
+/*
+ *  Bit2_get()
+ *
+ *  Parameters: Bit2_T instance, column and row
+ *              *** It is a checked runtime error if the Bit2_T is NULL
+ *  Does:       Returns the value at a specified col and row in Bit2_T instance
  */
 extern int Bit2_get(T bit2, int col, int row);
 
-/* 
- * NAME:   Bit2_map_row_major
- * DOES:   calls the supplied apply function for each element in the Bit2,
- *         where the col indices vary more rapidly than row indices
- * INPUT:  the bit2, a client-supplied apply function, a closure pointer
- *         It is a checked runtime error if the Bit2 is NULL.
- * OUTPUT: returns nothing
+/*
+ *  Bit2_map_row_major
+ *
+ *  Parameters: Bit2_T instance, client-supplied apply function, closure ptr
+ *              *** It is a checked runtime error if the Bit2_T is NULL
+ *  Does:       Calls supplied apply function at each element in Bit2_T
+ *              instance, where col indices vary more rapidly than row indices
+ *  Returns:    NA
  */
 extern void Bit2_map_row_major(T bit2, void apply(int i, int j, T bit2, int b,
                                void *p1), void *cl);
 
-/* 
- * NAME:   Bit2_map_col_major
- * DOES:   calls the supplied apply function for each element in the Bit2,
- *         where the col indices vary more rapidly than row indices
- * INPUT:  the bit2, a client-supplied apply function, a closure pointer
- *         It is a checked runtime error if the Bit2 is NULL.
- * OUTPUT: returns nothing
+/*
+ *  Bit2_map_col_major
+ *
+ *  Parameters: Bit2_T instance, client-supplied apply function, closure ptr
+ *              *** It is a checked runtime error if the Bit2_T is NULL
+ *  Does:       Calls supplied apply function at each element in Bit2_T
+ *              instance, where row indices vary more rapidly than col indices
+ *  Returns:    NA
  */
 extern void Bit2_map_col_major(T bit2, void apply(int i, int j, T bit2, int b,
                                void *p1), void *cl);
 
-/* 
- * NAME:   Bit2_free
- * DOES:   frees the associated memory of the Bit2 structure
- * INPUT:  a pointer to the bit2
- *         It is a checked runtime error if the Bit2 is NULL. It is also a
- *         checked runtime error if the pointer to the Bit2 that is passed
- *         in to the function is NULL.
- * OUTPUT: returns nothing
+/*
+ *  Bit2_free
+ *
+ *  Parameters: Pointer to Bit2_T instance
+ *              *** It is a checked runtime error if the Bit2_T is NULL
+ *  Does:       Frees associated memory of the Bit2_T structure
+ *  Returns:    NA
  */
 extern void Bit2_free(T *bit2);
 
