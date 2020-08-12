@@ -17,6 +17,7 @@ The program uses the included Bit2 module and [Hanson's](https://en.wikipedia.or
 * bit2.h: Bit2 module interface
 * before.png: Example PBM image before processing through *unblack-edges*
 * after.png: Example PBM image after processing through *unblack-edges*
+* Makefile: Contains code that builds the program.
 
 ### Example Before & After
 ![Example image before and after unblack-edges processing](before-and-after.jpg)
